@@ -17,6 +17,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import pojo.AddPlace;
 import pojo.Location;
+import resources.APIResources;
 import resources.TestDataBuild;
 import resources.Utils;
 
@@ -38,8 +39,10 @@ public class stepDefinition extends Utils{
 	}
 	
 	@When("user calls {string} with Post http request")
-	public void user_calls_with_http_request(String string) {
-		 response =res.when().post("/maps/api/place/add/json").
+	public void user_calls_with_http_request(String resource) {
+		APIResources apiResource=APIResources.valueOf(resource);
+		
+		 response =res.when().post(apiResource.getResource()).
 				then().spec(resspec).extract().response();
 		
 	}
